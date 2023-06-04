@@ -15,7 +15,9 @@ Configuração do Projeto:
 
 3 - Instale as dependências: yarn install
 
-4 - Inicie o servidor de desenvolvimento: yarn dev
+4 - Acesse o diretório do app: cd register-clients-app
+
+5 - Inicie o servidor de desenvolvimento: yarn dev
 
 Recursos e Dependências Principais:
 
