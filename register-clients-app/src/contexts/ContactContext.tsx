@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { api } from "../services/api";
 import {
@@ -7,6 +7,7 @@ import {
 } from "../pages/Dashboard/contactsSchema";
 import { toast } from "react-toastify";
 import { iPropsCard } from "../components/Card";
+import { ClientContext } from "./ClientContext";
 
 interface iContactContext {
   contacts: iAllContacts;
@@ -34,6 +35,7 @@ export const ContactProvider = () => {
   const [openModalDeleteContact, setOpenModalDeleteContact] = useState(false);
   const [listAllContacts, setListAllContacts] = useState({});
   const [contactUpdateOrDelete, setContactUpdateOrDelete] = useState({} as iPropsCard);
+  const { setLoading } = useContext(ClientContext)
 
   useEffect(() => {
     const listAllContactsByClient = async () => {
@@ -55,6 +57,7 @@ export const ContactProvider = () => {
   }, [listAllContacts]);
 
   const onSubmitFormCreateContact = async (data: iCreateContact) => {
+    setLoading(true);
     const token = localStorage.getItem("@register_clients_user_token");
 
     try {
@@ -69,6 +72,8 @@ export const ContactProvider = () => {
     } catch (error) {
       console.log(error);
       toast.error("Ops! Algo deu errado");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -78,6 +83,7 @@ export const ContactProvider = () => {
   }
 
   const onSubmitFormUpdateContact = async (data: iCreateContact) => {
+    setLoading(true);
     const token = localStorage.getItem("@register_clients_user_token");
 
     try {
@@ -92,6 +98,8 @@ export const ContactProvider = () => {
     } catch (error) {
       console.log(error);
       toast.error("Ops! Algo deu errado");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -101,6 +109,7 @@ export const ContactProvider = () => {
   }
 
   const deleteContact = async () => {
+    setLoading(true);
     const token = localStorage.getItem("@register_clients_user_token");
 
     try {
@@ -115,10 +124,10 @@ export const ContactProvider = () => {
     } catch (error) {
       console.log(error);
       toast.error("Ops! Algo deu errado");
+    } finally {
+      setLoading(false);
     }
   };
-
-  console.log(contacts)
 
   return (
     <ContactContext.Provider

@@ -3,14 +3,14 @@ import { useContext } from "react";
 import { iRegister, registerSchema } from "./registerSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { StyleRegister } from "./styles";
+import { IconLoading, StyleRegister, StyledDivBackLoading } from "./styles";
 import { Header } from "../../components/Header";
 import { Form } from "../../components/Form";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 
 export const Register = () => {
-  const { onSubmitFormRegister, loading, navigate } = useContext(ClientContext);
+  const { onSubmitFormRegister, loading } = useContext(ClientContext);
   const {
     register,
     handleSubmit,
@@ -67,6 +67,11 @@ export const Register = () => {
           name={"Cadastrar"}
         />
       </Form>
+      {loading && (
+          <StyledDivBackLoading>
+            <IconLoading />
+          </StyledDivBackLoading>
+        )}
     </StyleRegister>
   );
 };

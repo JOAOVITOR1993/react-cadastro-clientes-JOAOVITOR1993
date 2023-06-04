@@ -9,6 +9,7 @@ import { ModalUpdateClient } from "../../components/Modal/ModalUpdateClient";
 import { ModalCreateContact } from "../../components/Modal/ModalCreateContact";
 import { ModalUpdateContact } from "../../components/Modal/ModalUpdateContact";
 import { ModalDeleteContact } from "../../components/Modal/ModalDeleteContact";
+import { IconLoading, StyledDivBackLoading } from "../Register/styles";
 
 export const DashBoard = () => {
   const {
@@ -16,6 +17,7 @@ export const DashBoard = () => {
     user,
     openModalUpdateClient,
     setOpenModalUpdateClient,
+    loading,
   } = useContext(ClientContext);
 
   const { 
@@ -78,6 +80,11 @@ export const DashBoard = () => {
       {openModalCreateContact && (<ModalCreateContact/>)}
       {openModalUpdateContact && (<ModalUpdateContact/>)}
       {openModalDeleteContact && (<ModalDeleteContact/>)}
+      {loading && (
+          <StyledDivBackLoading>
+            <IconLoading />
+          </StyledDivBackLoading>
+        )}
     </>
   );
 };

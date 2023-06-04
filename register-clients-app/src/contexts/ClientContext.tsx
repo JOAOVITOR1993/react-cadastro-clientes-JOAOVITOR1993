@@ -20,6 +20,7 @@ interface iClientContext {
   setOpenModalUpdateClient: React.Dispatch<React.SetStateAction<boolean>>;
   onSubmitFormUpdateClient: (data: iRegisterUpdate) => Promise<void>;
   deleteClient: () => Promise<void>;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const ClientContext = createContext({} as iClientContext);
@@ -64,6 +65,7 @@ export const ClientProvider = ({ children }: iClientContextProps) => {
   };
 
   const onSubmitFormUpdateClient = async (data: iRegisterUpdate) => {
+    setLoading(true);
     const id = localStorage.getItem("@register_clients_user_id")
     const token = localStorage.getItem("@register_clients_user_token")
 
@@ -79,10 +81,13 @@ export const ClientProvider = ({ children }: iClientContextProps) => {
     } catch (error) {
       console.log(error);
       toast.error("Ops! Algo deu errado");
-    } 
+    } finally {
+      setLoading(false);
+    }
   };
 
   const deleteClient = async () => {
+    setLoading(true);
     const id = localStorage.getItem("@register_clients_user_id")
     const token = localStorage.getItem("@register_clients_user_token")
 
@@ -98,7 +103,9 @@ export const ClientProvider = ({ children }: iClientContextProps) => {
     } catch (error) {
       console.log(error);
       toast.error("Ops! Algo deu errado");
-    } 
+    } finally {
+      setLoading(false);
+    }
   };
 
   const clientLogout = () => {
@@ -107,7 +114,7 @@ export const ClientProvider = ({ children }: iClientContextProps) => {
     navigate("/");
   };
 
-    useEffect(()=>{
+  useEffect(()=>{
       const token = localStorage.getItem("@register_clients_user_token")
       const id = localStorage.getItem("@register_clients_user_id")
 
@@ -143,6 +150,7 @@ export const ClientProvider = ({ children }: iClientContextProps) => {
         setOpenModalUpdateClient,
         onSubmitFormUpdateClient,
         deleteClient,
+        setLoading,
       }}
     >
       {children}

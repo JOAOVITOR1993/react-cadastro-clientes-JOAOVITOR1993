@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { ClientContext } from "../../contexts/ClientContext";
 import { Button } from "../../components/Button";
 import { IconLogo, StyleLogin } from "./styles";
+import { IconLoading, StyledDivBackLoading } from "../Register/styles";
 
 export const Login = () => {
   const { onSubmitFormLogin, loading, navigate } = useContext(ClientContext);
@@ -62,6 +63,11 @@ export const Login = () => {
           name={"Cadastre-se"}
         />
       </Form>
+      {loading && (
+          <StyledDivBackLoading>
+            <IconLoading />
+          </StyledDivBackLoading>
+        )}
     </StyleLogin>
   );
 };
