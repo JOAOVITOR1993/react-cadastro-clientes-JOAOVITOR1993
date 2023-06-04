@@ -1,7 +1,7 @@
 import { ContactContext } from "../../contexts/ContactContext";
 import { Button } from "../Button";
 import { StyledCard } from "./styles";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
 export interface iPropsCard {
   id: number;
@@ -12,8 +12,9 @@ export interface iPropsCard {
 }
 
 export const Card = ({ id, name, email, phone, updatedAt }: iPropsCard) => {
-  const { setContactUpdateAndOpenModal, setContactDeleteAndOpenModal } =
-    useContext(ContactContext);
+  const { setContactUpdateAndOpenModal, setContactDeleteAndOpenModal } = useContext(ContactContext);
+  const [daysAgo, setDaysAgo] = useState("");
+  
   const contact = {
     id: id,
     name: name,
@@ -22,11 +23,24 @@ export const Card = ({ id, name, email, phone, updatedAt }: iPropsCard) => {
     updatedAt: updatedAt,
   };
 
+  useEffect(() => {
+    const updatedDate = new Date(updatedAt);
+    const currentDate = new Date();
+    const timeDiff = Math.abs(currentDate.getTime() - updatedDate.getTime());
+    const daysAgo = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+    let dayString = "dias"
+    if (daysAgo === 1){
+      dayString = "dia"
+    }
+    setDaysAgo(`Há ${daysAgo} ${dayString}`);
+  }, [updatedAt]);
+
   return (
     <StyledCard>
       <div>
         <h1>{name}</h1>
-        <p>{updatedAt}</p>
+        <p>{daysAgo}</p>
       </div>
       <p>E-mail: {email}</p>
       <p>Telefone: {phone}</p>
