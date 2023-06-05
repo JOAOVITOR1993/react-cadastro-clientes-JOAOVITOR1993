@@ -20,8 +20,8 @@ export const DashBoard = () => {
     loading,
   } = useContext(ClientContext);
 
-  const { 
-    contacts,  
+  const {
+    contacts,
     openModalCreateContact,
     setOpenModalCreateContact,
     openModalUpdateContact,
@@ -76,15 +76,15 @@ export const DashBoard = () => {
           </ul>
         </section>
       </StyledDashBoard>
-      {openModalUpdateClient && (<ModalUpdateClient/>)}
-      {openModalCreateContact && (<ModalCreateContact/>)}
-      {openModalUpdateContact && (<ModalUpdateContact/>)}
-      {openModalDeleteContact && (<ModalDeleteContact/>)}
+      {openModalUpdateClient && <ModalUpdateClient />}
+      {openModalCreateContact && <ModalCreateContact />}
+      {openModalUpdateContact && <ModalUpdateContact />}
+      {openModalDeleteContact && <ModalDeleteContact />}
       {loading && (
-          <StyledDivBackLoading>
-            <IconLoading />
-          </StyledDivBackLoading>
-        )}
+        <StyledDivBackLoading>
+          <IconLoading />
+        </StyledDivBackLoading>
+      )}
     </>
   );
 };

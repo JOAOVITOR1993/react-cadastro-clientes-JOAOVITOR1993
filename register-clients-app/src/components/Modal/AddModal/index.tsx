@@ -13,7 +13,7 @@ export const AddModal = ({ titleModal, onClick, children }: iAddModal) => {
       <div>
         <div>
           <h1>{titleModal}</h1>
-          <ButtonCloseModal onClick={onClick}/>
+          <ButtonCloseModal onClick={onClick} />
         </div>
         {children}
       </div>

@@ -15,8 +15,8 @@ interface iContactContext {
   openModalCreateContact: boolean;
   setOpenModalCreateContact: React.Dispatch<React.SetStateAction<boolean>>;
   onSubmitFormCreateContact: (data: iCreateContact) => Promise<void>;
-  openModalUpdateContact: boolean,
-  setOpenModalUpdateContact: React.Dispatch<React.SetStateAction<boolean>>,
+  openModalUpdateContact: boolean;
+  setOpenModalUpdateContact: React.Dispatch<React.SetStateAction<boolean>>;
   onSubmitFormUpdateContact: (data: iCreateContact) => Promise<void>;
   setContactUpdateAndOpenModal: (contact: iPropsCard) => void;
   contactUpdateOrDelete: iPropsCard;
@@ -34,8 +34,10 @@ export const ContactProvider = () => {
   const [openModalUpdateContact, setOpenModalUpdateContact] = useState(false);
   const [openModalDeleteContact, setOpenModalDeleteContact] = useState(false);
   const [listAllContacts, setListAllContacts] = useState({});
-  const [contactUpdateOrDelete, setContactUpdateOrDelete] = useState({} as iPropsCard);
-  const { setLoading } = useContext(ClientContext)
+  const [contactUpdateOrDelete, setContactUpdateOrDelete] = useState(
+    {} as iPropsCard
+  );
+  const { setLoading } = useContext(ClientContext);
 
   useEffect(() => {
     const listAllContactsByClient = async () => {
@@ -78,20 +80,24 @@ export const ContactProvider = () => {
   };
 
   const setContactUpdateAndOpenModal = (contact: iPropsCard) => {
-    setContactUpdateOrDelete(contact)
-    setOpenModalUpdateContact(true)
-  }
+    setContactUpdateOrDelete(contact);
+    setOpenModalUpdateContact(true);
+  };
 
   const onSubmitFormUpdateContact = async (data: iCreateContact) => {
     setLoading(true);
     const token = localStorage.getItem("@register_clients_user_token");
 
     try {
-      const response = await api.patch(`/contacts/${contactUpdateOrDelete.id}`, data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await api.patch(
+        `/contacts/${contactUpdateOrDelete.id}`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       toast.success("Contato atualizado!");
       setOpenModalUpdateContact(false);
       setListAllContacts(response.data);
@@ -104,20 +110,23 @@ export const ContactProvider = () => {
   };
 
   const setContactDeleteAndOpenModal = (contact: iPropsCard) => {
-    setContactUpdateOrDelete(contact)
-    setOpenModalDeleteContact(true)
-  }
+    setContactUpdateOrDelete(contact);
+    setOpenModalDeleteContact(true);
+  };
 
   const deleteContact = async () => {
     setLoading(true);
     const token = localStorage.getItem("@register_clients_user_token");
 
     try {
-      const response = await api.delete(`/contacts/${contactUpdateOrDelete.id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await api.delete(
+        `/contacts/${contactUpdateOrDelete.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       toast.success("Contato excluído!");
       setOpenModalDeleteContact(false);
       setListAllContacts(response.data);

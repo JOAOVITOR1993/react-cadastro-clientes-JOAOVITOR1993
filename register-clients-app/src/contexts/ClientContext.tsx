@@ -27,9 +27,9 @@ export const ClientContext = createContext({} as iClientContext);
 
 export const ClientProvider = ({ children }: iClientContextProps) => {
   const navigate = useNavigate();
-  const [user, setUser] = useState({} as ILoginUserSchemaResponse)
+  const [user, setUser] = useState({} as ILoginUserSchemaResponse);
   const [loading, setLoading] = useState(false);
-  const [openModalUpdateClient, setOpenModalUpdateClient] = useState(false)
+  const [openModalUpdateClient, setOpenModalUpdateClient] = useState(false);
 
   const onSubmitFormRegister = async (data: iRegister) => {
     setLoading(true);
@@ -51,7 +51,7 @@ export const ClientProvider = ({ children }: iClientContextProps) => {
 
     try {
       const response = await api.post("/login", data);
-      setUser(response.data.user)
+      setUser(response.data.user);
       localStorage.setItem("@register_clients_user_token", response.data.token);
       localStorage.setItem("@register_clients_user_id", response.data.user.id);
       toast.success("Login realizado com sucesso!");
@@ -66,18 +66,18 @@ export const ClientProvider = ({ children }: iClientContextProps) => {
 
   const onSubmitFormUpdateClient = async (data: iRegisterUpdate) => {
     setLoading(true);
-    const id = localStorage.getItem("@register_clients_user_id")
-    const token = localStorage.getItem("@register_clients_user_token")
+    const id = localStorage.getItem("@register_clients_user_id");
+    const token = localStorage.getItem("@register_clients_user_token");
 
     try {
       const response = await api.patch(`/clients/${id}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
-        }
+        },
       });
       toast.success("Conta atualizada com sucesso!");
       setOpenModalUpdateClient(false);
-      setUser(response.data)
+      setUser(response.data);
     } catch (error) {
       console.log(error);
       toast.error("Ops! Algo deu errado");
@@ -88,18 +88,18 @@ export const ClientProvider = ({ children }: iClientContextProps) => {
 
   const deleteClient = async () => {
     setLoading(true);
-    const id = localStorage.getItem("@register_clients_user_id")
-    const token = localStorage.getItem("@register_clients_user_token")
+    const id = localStorage.getItem("@register_clients_user_id");
+    const token = localStorage.getItem("@register_clients_user_token");
 
     try {
       await api.delete(`/clients/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
-        }
+        },
       });
       toast.success("Conta deletada com sucesso!");
       setOpenModalUpdateClient(false);
-      clientLogout()
+      clientLogout();
     } catch (error) {
       console.log(error);
       toast.error("Ops! Algo deu errado");
@@ -114,28 +114,28 @@ export const ClientProvider = ({ children }: iClientContextProps) => {
     navigate("/");
   };
 
-  useEffect(()=>{
-      const token = localStorage.getItem("@register_clients_user_token")
-      const id = localStorage.getItem("@register_clients_user_id")
+  useEffect(() => {
+    const token = localStorage.getItem("@register_clients_user_token");
+    const id = localStorage.getItem("@register_clients_user_id");
 
-      const getProfile = async () => {
-          if(token){
-              try{
-                const response = await api.get(`/clients/${id}`,{
-                      headers:{
-                          Authorization: `Bearer ${token}`,
-                      }
-                  })
-                  setUser(response.data)
-              }catch(error){
-                  console.log(error)
-              }
-          }else{
-              navigate("/")
-          }
+    const getProfile = async () => {
+      if (token) {
+        try {
+          const response = await api.get(`/clients/${id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setUser(response.data);
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        navigate("/");
       }
-      getProfile()
-  },[])
+    };
+    getProfile();
+  }, []);
 
   return (
     <ClientContext.Provider
