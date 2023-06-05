@@ -64,10 +64,10 @@ export const Login = () => {
         />
       </Form>
       {loading && (
-          <StyledDivBackLoading>
-            <IconLoading />
-          </StyledDivBackLoading>
-        )}
+        <StyledDivBackLoading>
+          <IconLoading />
+        </StyledDivBackLoading>
+      )}
     </StyleLogin>
   );
 };

@@ -12,9 +12,10 @@ export interface iPropsCard {
 }
 
 export const Card = ({ id, name, email, phone, updatedAt }: iPropsCard) => {
-  const { setContactUpdateAndOpenModal, setContactDeleteAndOpenModal } = useContext(ContactContext);
+  const { setContactUpdateAndOpenModal, setContactDeleteAndOpenModal } =
+    useContext(ContactContext);
   const [daysAgo, setDaysAgo] = useState("");
-  
+
   const contact = {
     id: id,
     name: name,
@@ -29,9 +30,9 @@ export const Card = ({ id, name, email, phone, updatedAt }: iPropsCard) => {
     const timeDiff = Math.abs(currentDate.getTime() - updatedDate.getTime());
     const daysAgo = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
-    let dayString = "dias"
-    if (daysAgo === 1){
-      dayString = "dia"
+    let dayString = "dias";
+    if (daysAgo === 1) {
+      dayString = "dia";
     }
     setDaysAgo(`Há ${daysAgo} ${dayString}`);
   }, [updatedAt]);

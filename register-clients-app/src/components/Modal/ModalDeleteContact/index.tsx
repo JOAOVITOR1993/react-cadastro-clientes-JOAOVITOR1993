@@ -5,7 +5,8 @@ import { StyledFormDeleteContactModal } from "../FormModal/styles";
 import { Button } from "../../Button";
 
 export const ModalDeleteContact = () => {
-  const { setOpenModalDeleteContact, deleteContact, contactUpdateOrDelete } = useContext(ContactContext);
+  const { setOpenModalDeleteContact, deleteContact, contactUpdateOrDelete } =
+    useContext(ContactContext);
 
   return (
     <AddModal
@@ -13,7 +14,13 @@ export const ModalDeleteContact = () => {
       onClick={() => setOpenModalDeleteContact(false)}
     >
       <StyledFormDeleteContactModal>
-        <h1>Tem certeza que deseja excluir o contato <em><span>{contactUpdateOrDelete.name}</span></em>?</h1>
+        <h1>
+          Tem certeza que deseja excluir o contato{" "}
+          <em>
+            <span>{contactUpdateOrDelete.name}</span>
+          </em>
+          ?
+        </h1>
         <div className="divButton">
           <Button
             className="buttonGrey2"

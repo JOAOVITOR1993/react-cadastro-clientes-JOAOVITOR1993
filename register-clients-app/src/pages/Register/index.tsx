@@ -50,7 +50,9 @@ export const Register = () => {
           textLabel="Senha"
           register={register("password")}
         />
-        {errors.password && <p className="alertErrors">{errors.password.message}</p>}
+        {errors.password && (
+          <p className="alertErrors">{errors.password.message}</p>
+        )}
 
         <Input
           type="text"
@@ -59,7 +61,9 @@ export const Register = () => {
           textLabel="Telefone"
           register={register("phone")}
         />
-        {errors.password && <p className="alertErrors">{errors.password.message}</p>}
+        {errors.password && (
+          <p className="alertErrors">{errors.password.message}</p>
+        )}
 
         <Button
           className={"buttonPrimary"}
@@ -68,10 +72,10 @@ export const Register = () => {
         />
       </Form>
       {loading && (
-          <StyledDivBackLoading>
-            <IconLoading />
-          </StyledDivBackLoading>
-        )}
+        <StyledDivBackLoading>
+          <IconLoading />
+        </StyledDivBackLoading>
+      )}
     </StyleRegister>
   );
 };
